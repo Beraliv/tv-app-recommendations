@@ -1,29 +1,34 @@
 import classNames from 'classnames';
 import React, { FunctionComponent, useEffect, useState, useRef, useLayoutEffect } from 'react';
 import { Button } from '../../atoms/Button';
-import { useVisibility } from '../../../hooks/useVisibility';
 import './index.css';
 import { UpArrowButton } from '../../molecules/UpArrowButton';
 import { RecommendationCardParams, RecommendationCard } from '../../atoms/RecommendationCard';
-
-const noop = (): void => {
-  // nothing to do
-};
+import { SourceContextType } from '../../../context/SourceContext';
+import { useControlsSettingsContext } from '../../../context/ControlsSettingsContext';
 
 export type RecommendationLaneParams = {
+  /**
+   * Elements to recommend
+   */
   elements: (Pick<RecommendationCardParams, 'backgroundUrl' | 'name'> & {
-    id: string;
+    id: number;
   })[];
+  /**
+   * Next source trigger
+   */
+  onSetSource: SourceContextType['setSource'];
 }
 
 export const RecommendationLane: FunctionComponent<RecommendationLaneParams> = ({
   elements,
+  onSetSource,
 }) => {
-  const [isSliderAndIconVisible, toggleSliderAndIconVisibility] = useVisibility(false);
+  const { visibility: controlsVisibility, setVisible: setControlVisible } = useControlsSettingsContext();
   const [isSliderCentered, setSliderCenterPosition] = useState(false);
   const sliderRef = useRef<HTMLDivElement | null>(null);
 
-  const onResize = () => {
+  const checkForSliderBeingCentered = () => {
     if (sliderRef.current === null) {
       return;
     }
@@ -34,18 +39,32 @@ export const RecommendationLane: FunctionComponent<RecommendationLaneParams> = (
     setSliderCenterPosition(isNextSliderCentered);
   }
 
-  // eslint-disable-next-line
   useLayoutEffect(() => {
-    onResize();
+    // it fires synchronously after all DOM mutations
+    // so this is valid way to check if scrollable lane should be centered
+    // at the beginning
+    checkForSliderBeingCentered();
   });
 
   useEffect(() => {
-    window.addEventListener('resize', onResize);
+    // it fires asynchronously
+    // so this is valid way to check if scrollable lane should be centered
+    // in any case except for the start
+    window.addEventListener('resize', checkForSliderBeingCentered);
 
     return () => {
-      window.removeEventListener('resize', onResize);
+      window.removeEventListener('resize', checkForSliderBeingCentered);
     }
   }, []);
+
+  const toggleControlsVisibility = () => {
+    if (controlsVisibility.Recommendations) {
+      setControlVisible('Controls');
+      return;
+    }
+
+    setControlVisible('Recommendations');
+  };
 
   const handleButtonKeyPress = ({ key }: React.KeyboardEvent<HTMLElement>) => {
     const isKeyPressable = key === 'Enter' || key === ' ';
@@ -54,14 +73,26 @@ export const RecommendationLane: FunctionComponent<RecommendationLaneParams> = (
       return;
     }
 
-    toggleSliderAndIconVisibility();
+    toggleControlsVisibility();
+  }
+
+  const createSetSourceHandler = (id: number) => () => {
+    onSetSource(id);
+    setControlVisible('Controls');
   }
 
   return (
     <div className='RecommendationLane'>
       <div className='RecommendationLane__Line'>
-        <Button onKeyPress={handleButtonKeyPress}>Similar videos</Button>
-        {isSliderAndIconVisible && (
+        <Button
+          className={classNames('RecommendationLane__StartButton', {
+            RecommendationLane__StartButton_pressed: controlsVisibility.Recommendations,
+          })}
+          onKeyPress={handleButtonKeyPress}
+        >
+          Similar videos
+        </Button>
+        {controlsVisibility.Recommendations && (
           <UpArrowButton
             className='RecommendationLane__UpArrowButton'
             onKeyPress={handleButtonKeyPress}
@@ -69,16 +100,20 @@ export const RecommendationLane: FunctionComponent<RecommendationLaneParams> = (
         )}
         <div />
       </div>
-      {isSliderAndIconVisible && (
+      {controlsVisibility.Recommendations && (
         <div
           className={classNames('RecommendationLane__Slider', {
             RecommendationLane__Slider_centered: isSliderCentered,
           })}
           ref={sliderRef}
         >
-          {elements.map(element => (
-            <RecommendationCard key={element.id} {...element} onKeyPress={noop} />
-          ))}
+          {elements.map(element => {
+            const handleSetSource = createSetSourceHandler(element.id);
+
+            return (
+              <RecommendationCard key={element.id} {...element} onKeyPress={handleSetSource} />
+            );
+          })}
         </div>
       )}
     </div>

@@ -3,8 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { App } from './components/layout/App';
 import * as serviceWorker from './serviceWorker';
+import { ContextReducer } from './context/ContextReducer';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const root = document.getElementById('root')!;
+
+const videoTag = document.createElement('video');
+videoTag.id = 'video';
+
+const reactTree = (
+  <ContextReducer videoElement={videoTag}>
+    <App />
+  </ContextReducer>
+)
+
+ReactDOM.render(reactTree, root);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
