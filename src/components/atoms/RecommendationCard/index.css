@@ -1,0 +1,44 @@
+.RecommendationCard {
+  position: relative;
+  display: inline-block;
+  width: 160px;
+  height: 120px;
+  margin: 0 5px;
+  /* card cannot change its size */
+  flex-shrink: 0;
+
+  border-radius: 2px;
+
+  background-size: contain;
+
+  transition: transform 0.5s ease-in-out;
+  will-change: transform;
+}
+
+.RecommendationCard:focus {
+  /*
+    width: 160px => 190px
+    height: 120px => 150px
+  */
+  transform: scaleX(1.1875) scaleY(1.25);
+  z-index: 2;
+}
+
+.RecommendationCard__PlayIcon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+.RecommendationCard:focus .RecommendationCard__PlayIcon {
+  width: 32px;
+}
+
+.RecommendationCard__Name {
+  color: #FFF;
+  position: absolute;
+  bottom: 0;
+  margin: 0 0 5px 5px;
+}

@@ -28,7 +28,11 @@ export class App extends React.PureComponent<PropsType, StateType> {
       <div className="app">
         <video src={assets[0].video}></video>
         Horizontal Index: {index}
-        <RecommendationLane />
+        <RecommendationLane elements={assets.map(asset => ({
+          backgroundUrl: asset.image,
+          name: asset.title,
+          id: `${asset.id}`,
+        }))} />
       </div>
     );
   }

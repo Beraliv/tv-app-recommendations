@@ -4,7 +4,7 @@
 
 - [x] Add storybook
 - [x] Implement lane without recommendations
-- [ ] Implement recommendation card
+- [x] Implement recommendation card
 - [ ] Add Jest
 - [ ] Implement scrollability
 - [ ] Implement video skin
