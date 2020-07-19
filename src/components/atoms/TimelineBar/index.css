@@ -14,9 +14,6 @@
   outline: none;
   -webkit-appearance: none;
   -webkit-tap-highlight-color: #fff;
-
-  transform-origin: 0;
-  will-change: transform;
 }
 
 .TimelineBar::-webkit-slider-thumb {

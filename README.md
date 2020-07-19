@@ -11,7 +11,7 @@
 - [x] Implement lane without recommendations
 - [x] Implement recommendation card
 - [x] Implement video skin
-- [ ] Implement scrollability
-- [ ] Add animation
-- [ ] Add accesibility
+- [x] Implement scrollability
+- [x] Add animation
+- [x] Add accesibility
 - [ ] Audit

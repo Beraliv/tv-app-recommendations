@@ -29,7 +29,7 @@ export const Controls: FunctionComponent<ControlsParams> = ({ isPlaying, onPlay,
   const { visibility: controlsVisibility } = useControlsSettingsContext();
   const { currentTime, duration } = usePlayingPositionContext();
   
-  const toggleVisibility = () => {
+  const togglePlayback = () => {
     if (isPlaying) {
       onPause();
     } else {
@@ -72,7 +72,7 @@ export const Controls: FunctionComponent<ControlsParams> = ({ isPlaying, onPlay,
   };
 
   return (
-    <div className='Controls' onClick={toggleVisibility}>
+    <div className='Controls' onClick={togglePlayback}>
       {controlsVisibility.Controls && renderRemainingTime()}
       {controlsVisibility.Controls && (
         <TimelineBar

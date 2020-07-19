@@ -1,6 +1,7 @@
 .RecommendationCard {
   position: relative;
   display: inline-block;
+
   width: 160px;
   height: 120px;
   margin: 0 5px;
@@ -15,13 +16,32 @@
   will-change: transform;
 }
 
-.RecommendationCard:focus {
+.RecommendationCard__focused,
+.RecommendationCard:first-child:last-child.RecommendationCard__focused {
   /*
     width: 160px => 190px
     height: 120px => 150px
   */
   transform: scaleX(1.1875) scaleY(1.25);
   z-index: 2;
+}
+
+.RecommendationCard:first-child.RecommendationCard__focused {
+  /*
+    width: 160px => 190px
+    height: 120px => 150px
+    move by x: 0px => +15px = (190 - 160) / 2
+  */
+  transform: scaleX(1.1875) scaleY(1.25) translateX(15px);
+}
+
+.RecommendationCard:last-child.RecommendationCard__focused {
+  /*
+    width: 160px => 190px
+    height: 120px => 150px
+    move by x: 0px => -15px = (160 - 190) / 2
+  */
+  transform: scaleX(1.1875) scaleY(1.25) translateX(-15px);
 }
 
 .RecommendationCard__PlayIcon {
@@ -32,7 +52,7 @@
   transform: translate(-50%, -50%);
 }
 
-.RecommendationCard:focus .RecommendationCard__PlayIcon {
+.RecommendationCard__focused .RecommendationCard__PlayIcon {
   width: 32px;
 }
 

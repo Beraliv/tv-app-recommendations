@@ -1,11 +1,13 @@
 import classNames from 'classnames';
-import React, { FunctionComponent, useEffect, useState, useRef, useLayoutEffect } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Button } from '../../atoms/Button';
 import './index.css';
 import { UpArrowButton } from '../../molecules/UpArrowButton';
-import { RecommendationCardParams, RecommendationCard } from '../../atoms/RecommendationCard';
+import { RecommendationCardParams } from '../../atoms/RecommendationCard';
 import { SourceContextType } from '../../../context/SourceContext';
 import { useControlsSettingsContext } from '../../../context/ControlsSettingsContext';
+import { RecommendationSlider } from '../../molecules/RecommendationSlider';
+import { useFocus } from '../../../hooks/useFocus';
 
 export type RecommendationLaneParams = {
   /**
@@ -25,37 +27,7 @@ export const RecommendationLane: FunctionComponent<RecommendationLaneParams> = (
   onSetSource,
 }) => {
   const { visibility: controlsVisibility, setVisible: setControlVisible } = useControlsSettingsContext();
-  const [isSliderCentered, setSliderCenterPosition] = useState(false);
-  const sliderRef = useRef<HTMLDivElement | null>(null);
-
-  const checkForSliderBeingCentered = () => {
-    if (sliderRef.current === null) {
-      return;
-    }
-
-    const { scrollWidth, clientWidth } = sliderRef.current;
-
-    const isNextSliderCentered = Math.floor(scrollWidth) === Math.floor(clientWidth);
-    setSliderCenterPosition(isNextSliderCentered);
-  }
-
-  useLayoutEffect(() => {
-    // it fires synchronously after all DOM mutations
-    // so this is valid way to check if scrollable lane should be centered
-    // at the beginning
-    checkForSliderBeingCentered();
-  });
-
-  useEffect(() => {
-    // it fires asynchronously
-    // so this is valid way to check if scrollable lane should be centered
-    // in any case except for the start
-    window.addEventListener('resize', checkForSliderBeingCentered);
-
-    return () => {
-      window.removeEventListener('resize', checkForSliderBeingCentered);
-    }
-  }, []);
+  const { keyboardFocusIndex } = useFocus(elements.length);
 
   const toggleControlsVisibility = () => {
     if (controlsVisibility.Recommendations) {
@@ -67,19 +39,21 @@ export const RecommendationLane: FunctionComponent<RecommendationLaneParams> = (
   };
 
   const handleButtonKeyPress = ({ key }: React.KeyboardEvent<HTMLElement>) => {
-    const isKeyPressable = key === 'Enter' || key === ' ';
+    const isKeyPressable = key === 'Enter';
 
     if (!isKeyPressable) {
       return;
     }
 
-    toggleControlsVisibility();
-  }
+    if (controlsVisibility.Recommendations) {
+      onSetSource(elements[keyboardFocusIndex].id);
+      setControlVisible('Controls');
 
-  const createSetSourceHandler = (id: number) => () => {
-    onSetSource(id);
-    setControlVisible('Controls');
-  }
+      return;
+    }
+
+    toggleControlsVisibility();
+  };
 
   return (
     <div className='RecommendationLane'>
@@ -89,6 +63,7 @@ export const RecommendationLane: FunctionComponent<RecommendationLaneParams> = (
             RecommendationLane__StartButton_pressed: controlsVisibility.Recommendations,
           })}
           onKeyPress={handleButtonKeyPress}
+          tabIndex={0}
         >
           Similar videos
         </Button>
@@ -101,20 +76,10 @@ export const RecommendationLane: FunctionComponent<RecommendationLaneParams> = (
         <div />
       </div>
       {controlsVisibility.Recommendations && (
-        <div
-          className={classNames('RecommendationLane__Slider', {
-            RecommendationLane__Slider_centered: isSliderCentered,
-          })}
-          ref={sliderRef}
-        >
-          {elements.map(element => {
-            const handleSetSource = createSetSourceHandler(element.id);
-
-            return (
-              <RecommendationCard key={element.id} {...element} onKeyPress={handleSetSource} />
-            );
-          })}
-        </div>
+        <RecommendationSlider
+          elements={elements}
+          onSetSource={onSetSource}
+        />
       )}
     </div>
   );

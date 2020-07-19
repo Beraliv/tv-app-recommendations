@@ -11,10 +11,23 @@ export type ButtonParams = {
    * Key press callback
    */
   onKeyPress?: (event: React.KeyboardEvent<HTMLElement>) => void;
+  /**
+   * Element tab index
+   */
+  tabIndex?: number;
 };
 
-export const Button: FunctionComponent<ButtonParams> = ({ children, className, onKeyPress }) => (
-  <div tabIndex={1} className={classNames('Button', className)} onKeyPress={onKeyPress}>
+export const Button: FunctionComponent<ButtonParams> = ({
+  children,
+  className,
+  onKeyPress,
+  tabIndex,
+}) => (
+  <div
+    className={classNames('Button', className)}
+    onKeyPress={onKeyPress}
+    tabIndex={tabIndex}
+  >
     {children}
   </div>
 );

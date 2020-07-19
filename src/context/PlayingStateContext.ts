@@ -28,8 +28,6 @@ export const PlayingStateContext = createContext<PlayingStateContextType>(DEFAUL
 export const reducePlayingStateContext = ({ videoElement }: ContextReducerParams): PlayingStateContextType => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [playingState, setPlayingState] = useState<PlayingStateContextType['playingState']>('idle');
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [pauseStatus, setPauseStatus] = useState<'safe' | 'unsafe'>('unsafe');
 
   const onIdle = () => {
     console.debug('>>> onIdle');
@@ -57,8 +55,6 @@ export const reducePlayingStateContext = ({ videoElement }: ContextReducerParams
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    setPauseStatus('unsafe');
-
     videoElement.addEventListener('play', onPlay);
     videoElement.addEventListener('pause', onPause);
     videoElement.addEventListener('ended', onEnd);
@@ -73,19 +69,12 @@ export const reducePlayingStateContext = ({ videoElement }: ContextReducerParams
   }, [videoElement]);
 
   const play = () => {
-    videoElement.play()
-      .then(() => {
-        setPauseStatus('safe');
-      }).catch(() => {
-        onIdle();
-      });
+    videoElement.play().catch(() => {
+      onIdle();
+    });
   };
 
   const pause = () => {
-    if (pauseStatus === 'unsafe') {
-      return;
-    }
-
     // when set source happens
     // you need to stop before loading next source
     // unfortunately, there is no event for that

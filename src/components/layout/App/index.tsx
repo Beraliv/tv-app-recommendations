@@ -9,7 +9,7 @@ import { AssetType } from '../../../types/AssetType';
 
 export const App: React.FunctionComponent = () => {
   const { playingState, play, pause } = usePlayingStateContext();
-  const { currentSource, otherSources, setSource } = useSourceContext();
+  const { otherSources, setSource } = useSourceContext();
   const { videoElement } = useVideoElementContext();
 
   useLayoutEffect(() => {
@@ -46,7 +46,6 @@ export const App: React.FunctionComponent = () => {
 
   return (
     <div className="app">
-      Horizontal Index: {currentSource.id}
       <Controls onPlay={play} onPause={pause} isPlaying={playingState === 'play'} />
       <RecommendationLane elements={elements} onSetSource={handleSetSource} />
     </div>

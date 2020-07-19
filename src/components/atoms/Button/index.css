@@ -3,9 +3,9 @@
   padding: 10px 15px 6px 15px;
   margin: 0;
   border-radius: 2px;
-  color: #FFF;
+  color: #777;
 }
 
 .Button:focus {
-  color: #777;
+  color: #FFF;
 }

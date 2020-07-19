@@ -5,11 +5,11 @@ export type VideoElementContextType = {
   videoElement: HTMLVideoElement;
 };
 
-const VIDEO_TAG_PLACE_CONTEXT_CONTEXT: VideoElementContextType = {
+const DEFAULT_VIDEO_TAG_PLACE_CONTEXT: VideoElementContextType = {
   videoElement: document.getElementById('video')! as HTMLVideoElement,
 }
 
-export const VideoElementContext = createContext<VideoElementContextType>(VIDEO_TAG_PLACE_CONTEXT_CONTEXT);
+export const VideoElementContext = createContext<VideoElementContextType>(DEFAULT_VIDEO_TAG_PLACE_CONTEXT);
 
 export const reduceVideoElementContext = ({ videoElement }: ContextReducerParams) => {
   return { videoElement };
