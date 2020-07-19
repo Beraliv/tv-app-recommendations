@@ -7,7 +7,7 @@ import { RecommendationCardParams } from '../../atoms/RecommendationCard';
 import { SourceContextType } from '../../../context/SourceContext';
 import { useControlsSettingsContext } from '../../../context/ControlsSettingsContext';
 import { RecommendationSlider } from '../../molecules/RecommendationSlider';
-import { useFocus } from '../../../hooks/useFocus';
+import { useSelectionContext } from '../../../context/SelectionContext';
 
 export type RecommendationLaneParams = {
   /**
@@ -27,7 +27,7 @@ export const RecommendationLane: FunctionComponent<RecommendationLaneParams> = (
   onSetSource,
 }) => {
   const { visibility: controlsVisibility, setVisible: setControlVisible } = useControlsSettingsContext();
-  const { keyboardFocusIndex } = useFocus(elements.length);
+  const { currentSelection } = useSelectionContext();
 
   const toggleControlsVisibility = () => {
     if (controlsVisibility.Recommendations) {
@@ -46,7 +46,7 @@ export const RecommendationLane: FunctionComponent<RecommendationLaneParams> = (
     }
 
     if (controlsVisibility.Recommendations) {
-      onSetSource(elements[keyboardFocusIndex].id);
+      onSetSource(elements[currentSelection].id);
       setControlVisible('Controls');
 
       return;

@@ -14,6 +14,7 @@ import { action } from '@storybook/addon-actions';
 import assets from '../../../data/assets.json';
 import { createContextReducer } from '../../../function/createContextReducer';
 import { AssetType } from '../../../types/AssetType';
+import { SelectionContext } from '../../../context/SelectionContext';
 
 type StoryAppParams =
   & Pick<PlayingStateContextType, 'playingState'>
@@ -63,6 +64,13 @@ const StoryApp = ({
     props => <PlayingPositionContext.Provider value={{
       currentTime,
       duration,
+    }} children={props.children} />,
+    // nothing to test in SelectionContext
+    props => <SelectionContext.Provider value={{
+      left: action('left'),
+      right: action('right'),
+      currentSelection: 0,
+      nextSelection: 1,
     }} children={props.children} />,
   ];
 

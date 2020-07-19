@@ -3,8 +3,8 @@ import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
 import './index.css';
 import { RecommendationCard } from '../../atoms/RecommendationCard';
 import { useControlsSettingsContext } from '../../../context/ControlsSettingsContext';
-import { useFocus } from '../../../hooks/useFocus';
 import { RecommendationLaneParams } from '../../organisms/RecommendationLane';
+import { useSelectionContext } from '../../../context/SelectionContext';
 
 export type RecommendationSliderParams = RecommendationLaneParams;
 
@@ -15,10 +15,7 @@ export const RecommendationSlider = ({
   const { setVisible: setControlVisible } = useControlsSettingsContext();
   const [isSliderCentered, setSliderCenterPosition] = useState(false);
   const sliderRef = useRef<HTMLDivElement | null>(null);
-  const {
-    expectedNextKeyboardFocusIndex,
-    keyboardFocusIndex,
-  } = useFocus(elements.length);
+  const { currentSelection, nextSelection, left, right } = useSelectionContext();
 
   const checkForSliderBeingCentered = () => {
     if (sliderRef.current === null) {
@@ -49,6 +46,26 @@ export const RecommendationSlider = ({
     }
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.keyCode === 37) {
+        left();
+        return;
+      }
+
+      if (event.keyCode === 39) {
+        right(elements.length);
+        return;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [elements, left, right]);
+
   const createSetSourceHandler = (id: number) => () => {
     onSetSource(id);
     setControlVisible('Controls');
@@ -64,8 +81,8 @@ export const RecommendationSlider = ({
       {elements.map((element, index) => {
         const handleSetSource = createSetSourceHandler(element.id);
 
-        const isExpectedNextFocused = index === expectedNextKeyboardFocusIndex;
-        const isCurrentFocused = index === keyboardFocusIndex;
+        const isExpectedNextFocused = index === nextSelection;
+        const isCurrentFocused = index === currentSelection;
 
         const handleRender = (card: HTMLDivElement) => {
           if (card === null) {

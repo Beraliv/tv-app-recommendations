@@ -5,6 +5,7 @@ import { VideoElementContext, reduceVideoElementContext } from './VideoElementCo
 import { ControlsSettingsContext, reduceControlsSettingsContext } from './ControlsSettingsContext';
 import { reducePlayingPositionContext, PlayingPositionContext } from './PlayingPositionContext';
 import { createContextReducer } from '../function/createContextReducer';
+import { SelectionContext, reduceSelectionContext } from './SelectionContext';
 
 export type ContextReducerParams = {
   /**
@@ -19,6 +20,7 @@ const contextComposition: FunctionComponent<ContextReducerParams>[] = [
   props => <VideoElementContext.Provider value={reduceVideoElementContext(props)} children={props.children} />,
   props => <ControlsSettingsContext.Provider value={reduceControlsSettingsContext(props)} children={props.children} />,
   props => <PlayingPositionContext.Provider value={reducePlayingPositionContext(props)} children={props.children} />,
+  props => <SelectionContext.Provider value={reduceSelectionContext(props)} children={props.children} />,
 ];
 
 export const ContextReducer = createContextReducer(contextComposition);
