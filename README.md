@@ -2,7 +2,7 @@
 
 ## User story
 
-- [ ] Add storybook
+- [x] Add storybook
 - [ ] Implement lane without recommendations
 - [ ] Implement recommendation card
 - [ ] Add Jest
