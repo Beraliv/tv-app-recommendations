@@ -1,0 +1,8 @@
+.UpArrowButton__icon {
+  width: 100%;
+  height: 100%;
+}
+
+.UpArrowButton__button:focus svg.UpArrowButton__icon path {
+  fill: #777;
+}

@@ -3,7 +3,7 @@
 ## User story
 
 - [x] Add storybook
-- [ ] Implement lane without recommendations
+- [x] Implement lane without recommendations
 - [ ] Implement recommendation card
 - [ ] Add Jest
 - [ ] Implement scrollability
