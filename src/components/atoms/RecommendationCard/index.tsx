@@ -26,7 +26,7 @@ export type RecommendationCardParams = {
   isFocused: boolean;
 };
 
-export const RecommendationCard: FunctionComponent<RecommendationCardParams> = ({
+export const RecommendationCard: FunctionComponent<RecommendationCardParams> = React.memo(({
   backgroundUrl,
   name,
   onKeyPress,
@@ -72,4 +72,4 @@ export const RecommendationCard: FunctionComponent<RecommendationCardParams> = (
       </div>
     </div>
   );
-};
+});

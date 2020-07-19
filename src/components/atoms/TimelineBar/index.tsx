@@ -18,7 +18,7 @@ export type TimelineBarParams = {
   duration: number;
 }
 
-export const TimelineBar: FunctionComponent<TimelineBarParams> = ({
+export const TimelineBar: FunctionComponent<TimelineBarParams> = React.memo(({
   currentTime,
   duration,
   className,
@@ -50,4 +50,4 @@ export const TimelineBar: FunctionComponent<TimelineBarParams> = ({
       />
     </div>
   );
-};
+});

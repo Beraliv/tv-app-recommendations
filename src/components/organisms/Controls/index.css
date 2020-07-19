@@ -17,9 +17,8 @@
   transition: transform 0.5s ease-in-out;
 }
 
-.Controls__PlayIcon:hover,
-.Controls__PauseIcon:hover {
-  cursor: pointer;
+.Controls__PlayIcon:focus,
+.Controls__PauseIcon:focus {
   transform: scale(1.5) translateX(-31.25%);
 }
 

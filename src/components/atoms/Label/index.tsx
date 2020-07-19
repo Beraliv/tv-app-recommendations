@@ -12,8 +12,8 @@ export type LabelParams = {
   text: string;
 };
 
-export const Label = ({ className, text }: LabelParams) => (
+export const Label = React.memo(({ className, text }: LabelParams) => (
   <div className={classNames('Label', className)}>
     {text}
   </div>
-);
+));

@@ -17,7 +17,7 @@ export type ButtonParams = {
   tabIndex?: number;
 };
 
-export const Button: FunctionComponent<ButtonParams> = ({
+export const Button: FunctionComponent<ButtonParams> = React.memo(({
   children,
   className,
   onKeyPress,
@@ -30,4 +30,4 @@ export const Button: FunctionComponent<ButtonParams> = ({
   >
     {children}
   </div>
-);
+));

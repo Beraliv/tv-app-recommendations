@@ -37,17 +37,37 @@ export const Controls: FunctionComponent<ControlsParams> = ({ isPlaying, onPlay,
     }
   }
 
+  const handlePause = ({ key }: React.KeyboardEvent<HTMLElement>) => {
+    const isKeyPressable = key === 'Enter' || key === ' ';
+
+    if (!isKeyPressable) {
+      return;
+    }
+    
+    onPause();
+  };
+
+  const handlePlay = ({ key }: React.KeyboardEvent<HTMLElement>) => {
+    const isKeyPressable = key === 'Enter' || key === ' ';
+
+    if (!isKeyPressable) {
+      return;
+    }
+    
+    onPlay();
+  };
+
   const renderPlaybackButton = () => {
     if (isPlaying) {
       return (
-        <div className='Controls__PauseIcon' onClick={onPause}>
+        <div className='Controls__PauseIcon' tabIndex={0} onKeyPress={handlePause}>
           <PauseIcon color='#FFF' />
         </div>
       );
     }
 
     return (
-      <div className='Controls__PlayIcon' onClick={onPlay}>
+      <div className='Controls__PlayIcon' tabIndex={0} onKeyPress={handlePlay}>
         <PlayIcon color='#FFF' />
       </div>
     );

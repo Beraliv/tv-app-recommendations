@@ -14,4 +14,4 @@
 - [x] Implement scrollability
 - [x] Add animation
 - [x] Add accesibility
-- [ ] Audit
+- [x] Audit
