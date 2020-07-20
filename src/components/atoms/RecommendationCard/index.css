@@ -11,6 +11,9 @@
   border-radius: 2px;
 
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
 
   transition: transform 0.5s ease-in-out;
   will-change: transform;
