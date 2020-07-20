@@ -1,0 +1,43 @@
+[
+  {
+    "id": 1,
+    "title": "Sea Waves",
+    "video": "https://media.githubusercontent.com/media/Beraliv/tv-app-recommendations/master/src/data/sea_waves.mp4",
+    "image": "https://media.githubusercontent.com/media/Beraliv/tv-app-recommendations/master/src/data/sea_waves.webp"
+  },
+  {
+    "id": 2,
+    "title": "Bird Singing",
+    "video": "https://media.githubusercontent.com/media/Beraliv/tv-app-recommendations/master/src/data/bird_singing.mp4",
+    "image": "https://media.githubusercontent.com/media/Beraliv/tv-app-recommendations/master/src/data/bird_singing.webp"
+  },
+  {
+    "id": 3,
+    "title": "London Transport",
+    "video": "https://media.githubusercontent.com/media/Beraliv/tv-app-recommendations/master/src/data/london_transport.mp4",
+    "image": "https://media.githubusercontent.com/media/Beraliv/tv-app-recommendations/master/src/data/london_transport.webp"
+  },
+  {
+    "id": 4,
+    "title": "Fireplace",
+    "video": "https://media.githubusercontent.com/media/Beraliv/tv-app-recommendations/master/src/data/fireplace.mp4"
+  },
+  {
+    "id": 5,
+    "title": "Diving",
+    "video": "https://media.githubusercontent.com/media/Beraliv/tv-app-recommendations/master/src/data/diving.mp4",
+    "image": "https://media.githubusercontent.com/media/Beraliv/tv-app-recommendations/master/src/data/diving.webp"
+  },
+  {
+    "id": 6,
+    "title": "Bicycles",
+    "video": "https://media.githubusercontent.com/media/Beraliv/tv-app-recommendations/master/src/data/bicycles.mp4",
+    "image": "https://media.githubusercontent.com/media/Beraliv/tv-app-recommendations/master/src/data/bicycles.webp"
+  },
+  {
+    "id": 7,
+    "title": "Typing",
+    "video": "https://media.githubusercontent.com/media/Beraliv/tv-app-recommendations/master/src/data/typing.mp4",
+    "image": "https://media.githubusercontent.com/media/Beraliv/tv-app-recommendations/master/src/data/typing.webp"
+  }
+]

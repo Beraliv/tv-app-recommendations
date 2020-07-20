@@ -8,9 +8,6 @@
 # storybook
 /storybook-static
 
-# TODO: assets
-src/data/assets.json
-
 # testing
 /coverage
 

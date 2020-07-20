@@ -5,7 +5,6 @@ import { Controls } from '../../organisms/Controls';
 import { usePlayingStateContext } from '../../../context/PlayingStateContext';
 import { useSourceContext } from '../../../context/SourceContext';
 import { useVideoElementContext } from '../../../context/VideoElementContext';
-import { AssetType } from '../../../types/AssetType';
 
 export const App: React.FunctionComponent = () => {
   const { playingState, play, pause } = usePlayingStateContext();
@@ -37,7 +36,7 @@ export const App: React.FunctionComponent = () => {
     pause();
   }
 
-  const elements = (otherSources as AssetType[])
+  const elements = otherSources
     .map(asset => ({
       backgroundUrl: asset.image,
       name: asset.title,

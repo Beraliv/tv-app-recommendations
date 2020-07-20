@@ -1,6 +1,6 @@
 export type AssetType = {
   id: number;
   title: string;
-  image: string;
+  image?: string;
   video: string;
 };

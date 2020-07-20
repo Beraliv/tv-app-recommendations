@@ -21,7 +21,7 @@ export type SourceContextType = {
 
 const DEFAULT_SOURCE_CONTEXT: SourceContextType = {
   currentSource: assets[0],
-  otherSources: (assets as AssetType[]).slice(1),
+  otherSources: assets.slice(1),
   setSource: noop,
 }
 
@@ -37,7 +37,7 @@ export const reduceSourceContext = ({ videoElement }: ContextReducerParams) => {
     let currentSource: AssetType | undefined;
     const otherSources: AssetType[] = [];
 
-    for (let source of (assets as AssetType[])) {
+    for (let source of assets) {
       if (source.id === nextId) {
         currentSource = source;
       } else {

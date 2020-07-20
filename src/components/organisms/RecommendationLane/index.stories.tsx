@@ -6,9 +6,8 @@ import { SMALL_DOM_SIZE } from '../../const/SMALL_DOM_SIZE';
 import { MEDIUM_DOM_SIZE } from '../../const/MEDIUM_DOM_SIZE';
 import { LARGE_DOM_SIZE } from '../../const/LARGE_DOM_SIZE';
 import assets from '../../../data/assets.json';
-import { AssetType } from '../../../types/AssetType';
 
-const elements: RecommendationLaneParams['elements'] = (assets as AssetType[]).map(({ id, image, title }) => ({
+const elements: RecommendationLaneParams['elements'] = assets.map(({ id, image, title }) => ({
   backgroundUrl: image,
   name: title,
   id,

@@ -13,7 +13,6 @@ import { PlayingPositionContext } from '../../../context/PlayingPositionContext'
 import { action } from '@storybook/addon-actions';
 import assets from '../../../data/assets.json';
 import { createContextReducer } from '../../../function/createContextReducer';
-import { AssetType } from '../../../types/AssetType';
 import { SelectionContext } from '../../../context/SelectionContext';
 
 type StoryAppParams =
@@ -49,7 +48,7 @@ const StoryApp = ({
     props => <SourceContext.Provider value={{
       setSource: action('setSource'),
       currentSource: assets[0],
-      otherSources: (assets as AssetType[]).slice(1),
+      otherSources: assets.slice(1),
     }} children={props.children} />,
     // nothing to test in VideoElementContext
     props => <VideoElementContext.Provider value={{
