@@ -13,7 +13,7 @@
 - [x] Implement video skin
 - [x] Implement scrollability
 - [x] Add animation
-- [x] Add accesibility
+- [x] Add accessibility
 - [x] Audit
 
 ## How to interact with UI
